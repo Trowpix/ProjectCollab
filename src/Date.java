@@ -41,7 +41,11 @@ public class Date {
         if (i < 10){
             return "0" + i;
         }
-        return String.valueOf(i);//haloooppppp
-    }//pppp
-    //pp
+        return String.valueOf(i);//halooo
+    }
+    //hallosemuanya
+
+    //masak si
+
+    //apaiya
 }

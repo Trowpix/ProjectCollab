@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         SistemMenu:
         while (true){
+            String id = GenerateId();
             System.out.print("1. Add Student" +
                     "2. Student Menu" +
                     "3. Professor Menu" +
@@ -31,6 +32,13 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
+                                Student s = Stud.Get(id); // Ambil Student dari Sistem
+                                if (Stud.Get(id) != null){
+                                    s.display();
+                                }
+                                else{
+                                    System.out.println("Tidak ditemukaan!");
+                                }
                                 break;
                             case 2:
                                 System.out.print("Enter Student NIP >> ");
@@ -39,7 +47,7 @@ public class Main {
                                 boolean found = false;
 
                                 for (int i = 0; i < Stud.getSize(); i++) {
-                                    Student s = Stud.get(i);
+                                    s = Stud.get(i);
                                     if (s.getNIP().equals(searchNIP)) {
                                         System.out.println("Name: " + s.getName());
                                         System.out.println("Grades:");

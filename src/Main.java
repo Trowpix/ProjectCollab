@@ -1,15 +1,15 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class Main {
     public static Sistem<String,Student> Stud = new Sistem<>();
     public static Sistem<String,Professor> Prof = new Sistem<>();
+    private ArrayList<Integer> grades = new ArrayList<>();
     public static Scanner Sc = new Scanner(System.in);
-
     public static void main(String[] args) {
         SistemMenu:
         while (true){
-            String id = GenerateId();
             System.out.print("1. Add Student" +
                     "2. Student Menu" +
                     "3. Professor Menu" +
@@ -31,19 +31,36 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-                                Student s = Stud.Get(id);
-                                if (Stud.Get(id) != null){
-                                    s.display();
-                                }
-                                else{
-                                    System.out.println("Tidak ditemukaan!");
-                                }
                                 break;
                             case 2:
+                                System.out.print("Enter Student NIP >> ");
+                                Sc.nextLine(); // buang newline dari nextInt()
+                                String searchNIP = Sc.nextLine();
+                                boolean found = false;
 
+                                for (int i = 0; i < Stud.getSize(); i++) {
+                                    Student s = Stud.get(i);
+                                    if (s.getNIP().equals(searchNIP)) {
+                                        System.out.println("Name: " + s.getName());
+                                        System.out.println("Grades:");
+                                        if (s.getGrades().isEmpty()) {
+                                            System.out.println("No grades yet.");
+                                        } else {
+                                            for (int j = 0; j < s.getGrades().size(); j++) {
+                                                System.out.println("Grade " + (j+1) + ": " + s.getGrades().get(j));
+                                            }
+                                        }
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!found) {
+                                    System.out.println("Student not found.");
+                                }
                                 break;
-                            case 3:
 
+                            case 3:
                                 break;
                             case 4:
                                 break StudMenu;
@@ -60,7 +77,6 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-                                ;
                                 break;
                             case 2:
                                 break;
@@ -117,4 +133,14 @@ public class Main {
     public Student SelectStudent(){
         return null;
     }
+
+
+    public ArrayList<Integer> getGrades() {
+        return grades;
+    }
+
+    public void addGrade(int grade) {
+        grades.add(grade);
+    }
+
 }

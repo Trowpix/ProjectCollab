@@ -22,4 +22,7 @@ public class Assignment {
     public void setDueDate(Date dueDate) {
         DueDate = dueDate;
     }
+
+    //dope
+
 }

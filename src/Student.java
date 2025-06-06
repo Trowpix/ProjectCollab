@@ -63,11 +63,4 @@ public class Student {
     public void setSub(Subject sub) {
         Sub.add(sub);
     }
-
-    public void display(){
-        System.out.println("NIP: " + getNIP());
-        System.out.println("Name: " + getName());
-        System.out.println("Birth date: " + Date.GetDate(Age));
-        System.out.println("Major: " + Major);
-    }
 }

@@ -8,6 +8,16 @@ public class Sistem <K, V>{
         key.add(x);
         Value.add(y);
     }
+
+    public V Get(K x) {
+        for (int i = 0; i < key.size(); i++) {
+            if (key.get(i).equals(x)) {
+                return Value.get(i);
+            }
+        }
+        return null;
+    }
+
     public ArrayList<K> getKey() {
         return key;
     }

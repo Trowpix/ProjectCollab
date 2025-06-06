@@ -5,9 +5,11 @@ public class Main {
     public static Sistem<String,Student> Stud = new Sistem<>();
     public static Sistem<String,Professor> Prof = new Sistem<>();
     public static Scanner Sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         SistemMenu:
         while (true){
+            String id = GenerateId();
             System.out.print("1. Add Student" +
                     "2. Student Menu" +
                     "3. Professor Menu" +
@@ -29,11 +31,19 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-
+                                Student s = Stud.Get(id); // Ambil Student dari Sistem
+                                if (Stud.Get(id) != null){
+                                    s.display();
+                                }
+                                else{
+                                    System.out.println("Tidak ditemukan!");
+                                }
                                 break;
                             case 2:
+
                                 break;
                             case 3:
+
                                 break;
                             case 4:
                                 break StudMenu;
@@ -50,6 +60,7 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
+                                ;
                                 break;
                             case 2:
                                 break;

@@ -31,7 +31,7 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-                                Student s = Stud.Get(id); // Ambil Student dari Sistem
+                                Student s = Stud.Get(id);
                                 if (Stud.Get(id) != null){
                                     s.display();
                                 }

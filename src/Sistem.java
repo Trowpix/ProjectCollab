@@ -8,7 +8,6 @@ public class Sistem <K, V>{
         key.add(x);
         Value.add(y);
     }
-
     public ArrayList<K> getKey() {
         return key;
     }
@@ -24,8 +23,4 @@ public class Sistem <K, V>{
     public void setValue(ArrayList<V> value) {
         Value = value;
     }
-
-    public int getSize() { return Value.size();}
-
-    public V get(int index) { return Value.get(index);}
 }

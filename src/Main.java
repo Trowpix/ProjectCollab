@@ -36,7 +36,7 @@ public class Main {
                                     s.display();
                                 }
                                 else{
-                                    System.out.println("Tidak ditemukaan!");
+                                    System.out.println("Tidak ditemukan!");
                                 }
                                 break;
                             case 2:

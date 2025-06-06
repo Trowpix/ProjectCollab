@@ -5,12 +5,12 @@ import java.util.UUID;
 public class Main {
     public static Sistem<String,Student> Stud = new Sistem<>();
     public static Sistem<String,Professor> Prof = new Sistem<>();
-    private ArrayList<Integer> grades = new ArrayList<>();
     public static Scanner Sc = new Scanner(System.in);
     public static void main(String[] args) {
         SistemMenu:
         while (true){
             String id = GenerateId();
+            Student s = Stud.Get(id);
             System.out.print("1. Add Student" +
                     "2. Student Menu" +
                     "3. Professor Menu" +
@@ -32,7 +32,6 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-                                Student s = Stud.Get(id); // Ambil Student dari Sistem
                                 if (Stud.Get(id) != null){
                                     s.display();
                                 }
@@ -41,34 +40,24 @@ public class Main {
                                 }
                                 break;
                             case 2:
-                                System.out.print("Enter Student NIP >> ");
-                                Sc.nextLine(); // buang newline dari nextInt()
-                                String searchNIP = Sc.nextLine();
-                                boolean found = false;
-
-                                for (int i = 0; i < Stud.getSize(); i++) {
-                                    s = Stud.get(i);
-                                    if (s.getNIP().equals(searchNIP)) {
-                                        System.out.println("Name: " + s.getName());
-                                        System.out.println("Grades:");
-                                        if (s.getGrades().isEmpty()) {
-                                            System.out.println("No grades yet.");
-                                        } else {
-                                            for (int j = 0; j < s.getGrades().size(); j++) {
-                                                System.out.println("Grade " + (j+1) + ": " + s.getGrades().get(j));
-                                            }
+                                System.out.println("== All Students' Grades ==");
+                                for (Student so : Stud.getAll()) {
+                                    System.out.println("Name: " + so.getName());
+                                    if (so.getGrades().isEmpty()) {
+                                        System.out.println("No grades available.");
+                                    } else {
+                                        int i = 1;
+                                        for (Integer grade : so.getGrades()) {
+                                            System.out.println("Grade " + i + ": " + grade);
+                                            i++;
                                         }
-                                        found = true;
-                                        break;
                                     }
-                                }
-
-                                if (!found) {
-                                    System.out.println("Student not found.");
+                                    System.out.println("-----------------------------");
                                 }
                                 break;
 
                             case 3:
+
                                 break;
                             case 4:
                                 break StudMenu;
@@ -85,6 +74,12 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
+                                System.out.println("Current id: " + id);
+                                if (Stud.Get(id) != null){
+                                    System.out.println("What assignment will you give?");
+                                    Enum<assignment> assign = assignmentSelection();
+
+                                }
                                 break;
                             case 2:
                                 break;
@@ -110,6 +105,25 @@ public class Main {
     }
     public static String GenerateId(){
         return UUID.randomUUID().toString().substring(0,8);
+    }
+
+    public enum assignment{
+        BIG,
+        BIN,
+        MATH,
+        CIVIC,
+        HISTORY,
+    }
+
+    public static assignment assignmentSelection(){
+        assignment[] as = assignment.values();
+        int i = 1;
+        for (assignment asg : assignment.values()){
+            System.out.println(i + ". " + asg);
+            i++;
+        }
+        System.out.print(">>"); int pil = Sc.nextInt();
+        return as[pil-1];
     }
 
     public enum SubjectSelection{
@@ -140,15 +154,6 @@ public class Main {
 
     public Student SelectStudent(){
         return null;
-    }
-
-
-    public ArrayList<Integer> getGrades() {
-        return grades;
-    }
-
-    public void addGrade(int grade) {
-        grades.add(grade);
     }
 
 }

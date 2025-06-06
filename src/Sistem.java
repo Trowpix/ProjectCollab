@@ -16,6 +16,7 @@ public class Sistem <K, V>{
         }
         return null;
     }
+
     public ArrayList<K> getKey() {
         return key;
     }
@@ -35,4 +36,5 @@ public class Sistem <K, V>{
     public int getSize() { return Value.size();}
 
     public V get(int index) { return Value.get(index);}
+    public ArrayList<V> getAll(){ return Value;}
 }

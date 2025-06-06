@@ -29,6 +29,7 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
+
                                 break;
                             case 2:
                                 break;
@@ -100,5 +101,9 @@ public class Main {
         }
         System.out.print(">>"); int pil = Sc.nextInt();
         return mj[pil-1];
+    }
+
+    public Student SelectStudent(){
+        return null;
     }
 }

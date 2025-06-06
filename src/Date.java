@@ -43,9 +43,4 @@ public class Date {
         }
         return String.valueOf(i);//halooo
     }
-    //hallosemuanya
-
-    //masak si
-
-    //apaiya
 }

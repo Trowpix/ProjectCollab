@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Subject  {
     private Enum<SubjectName> SubName;
-    private final Evaluation<String,Integer> eval = new Evaluation<>();
-    private final ArrayList<Assignment> Assignment = new ArrayList<>();
+    private Evaluation<String,Integer> eval = new Evaluation<>();
+    private ArrayList<Assignment> Assignment = new ArrayList<>();
 
     public Subject(Enum<SubjectName> E) {
         SubName = E;
@@ -20,6 +20,7 @@ public class Subject  {
     public ArrayList<Assignment> getAssignment() {
         return Assignment;
     }
+
 
     enum SubjectName {
         BIG,

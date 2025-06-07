@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -10,7 +9,7 @@ public class Main {
         SistemMenu:
         while (true){
             String id = GenerateId();
-            Student s = Stud.Get(id);
+            Student s = Stud.GetValue(id);
             System.out.print("1. Add Student" +
                     "2. Student Menu" +
                     "3. Professor Menu" +
@@ -32,7 +31,7 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-                                if (Stud.Get(id) != null){
+                                if (Stud.GetValue(id) != null){
                                     s.display();
                                 }
                                 else{
@@ -75,7 +74,7 @@ public class Main {
                         switch (pil){
                             case 1:
                                 System.out.println("Current id: " + id);
-                                if (Stud.Get(id) != null){
+                                if (Stud.GetValue(id) != null){
                                     System.out.println("What assignment will you give?");
                                     Enum<assignment> assign = assignmentSelection();
 

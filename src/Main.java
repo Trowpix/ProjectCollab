@@ -57,7 +57,38 @@ public class Main {
                                 break;
 
                             case 3:
+                                // Tampilkan semua student
+                                System.out.println("== Select Student ==");
+                                ArrayList<String> keys = Stud.getKey();
+                                for (int j = 0; j < keys.size(); j++) {
+                                    Student stud = Stud.Get(keys.get(j));
+                                    System.out.println((j + 1) + ". " + stud.getName() + " (ID: " + keys.get(j) + ")");
+                                }
+                                System.out.print("Pilih nomor student >> ");
+                                int studentIdx = Sc.nextInt() - 1;
 
+                                if (studentIdx >= 0 && studentIdx < keys.size()) {
+                                    Student selectedStudent = Stud.Get(keys.get(studentIdx));
+
+                                    // Tampilkan daftar subject
+                                    System.out.println("== Select Subject to Enroll ==");
+                                    SubjectSelection[] subList = SubjectSelection.values();
+                                    for (int k = 0; k < subList.length; k++) {
+                                        System.out.println((k + 1) + ". " + subList[k]);
+                                    }
+                                    System.out.print("Pilih nomor subject >> ");
+                                    int subIdx = Sc.nextInt() - 1;
+
+                                    if (subIdx >= 0 && subIdx < subList.length) {
+                                        Subject newSub = new Subject(subList[subIdx].toString());
+                                        selectedStudent.setSub(newSub);
+                                        System.out.println("Subject berhasil ditambahkan ke student.");
+                                    } else {
+                                        System.out.println("Pilihan subject tidak valid.");
+                                    }
+                                } else {
+                                    System.out.println("Pilihan student tidak valid.");
+                                }
                                 break;
                             case 4:
                                 break StudMenu;

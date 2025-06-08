@@ -2,12 +2,13 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class Main {
-    public static Sistem<String,Student> Stud = new Sistem<>();
-    public static Sistem<String,Professor> Prof = new Sistem<>();
+    public static Sistem<String, Student> Stud = new Sistem<>();
+    public static Sistem<String, Professor> Prof = new Sistem<>();
     public static Scanner Sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         SistemMenu:
-        while (true){
+        while (true) {
             String id = GenerateId();
             Student s = Stud.GetValue(id);
             System.out.print("1. Add Student" +
@@ -16,110 +17,118 @@ public class Main {
                     "4. Exit" +
                     ">> ");
             int pil = Sc.nextInt();
-            switch (pil){
+            switch (pil) {
                 case 1:
                     AddStudent();
                     break;
                 case 2:
                     StudMenu:
-                    while (true){
+                    while (true) {
                         System.out.print("1. View data" +
                                 "2. View Grades" +
                                 "3. Enroll In SubjectName" +
                                 "4. Return" +
                                 ">> ");
                         pil = Sc.nextInt();
-                        switch (pil){
+                        switch (pil) {
                             case 1:
 
-                                if (Stud.GetValue(id) != null){
+                                if (Stud.GetValue(id) != null) {
                                     s.display();
-                                }
-                                else{
+                                } else {
                                     System.out.println("Tidak ditemukan!");
                                 }
                                 break;
                             case 2:
-                                /*
                                 System.out.println("== All Students' Grades ==");
-                                //Get all tidak penting, langsung saja Value kan arraylist punya student jadi panggil sj get value,
-                                // tidak perlu buat method baut buat ambil semua student di arraylist
-                                for (Student so : Stud.getValue()) {
-                                    System.out.println("Name: " + so.getName());
-                                    if (so.getGrades().isEmpty()) {
-                                        System.out.println("No grades available.");
+
+                                for (Student student : Stud.getValue()) {
+                                    System.out.println("Name: " + student.getName());
+
+                                    if (student.getSub().isEmpty()) {
+                                        System.out.println("No subjects enrolled.");
                                     } else {
-                                        int i = 1;
-                                        for (Integer grade : so.getGrades()) {
-                                            System.out.println("Grade " + i + ": " + grade);
-                                            i++;
+                                        for (Subject subject : student.getSub()) {
+                                            System.out.println("Subject: " + subject.getSubName());
+
+                                            Evaluation<String, Integer> eval = subject.getEval();
+                                            if (eval.getGrade().isEmpty()) {
+                                                System.out.println("  No grades available.");
+                                            } else {
+                                                for (int i = 0; i < eval.getGrade().size(); i++) {
+                                                    System.out.println("  " + eval.getType().get(i) + ": " + eval.getGrade().get(i));
+                                                }
+                                            }
                                         }
                                     }
                                     System.out.println("-----------------------------");
                                 }
-
-                                 */
                                 break;
 
                             case 3:
-                                // Tampilkan semua student
-                                System.out.println("== Select Student ==");
-                                ArrayList<String> keys = Stud.getKey();
-                                for (int j = 0; j < keys.size(); j++) {
-                                    Student stud = Stud.Get(keys.get(j));
-                                    System.out.println((j + 1) + ". " + stud.getName() + " (ID: " + keys.get(j) + ")");
+                                System.out.print("Input Student ID: ");
+                                String inputNIP = Sc.nextLine();
+
+                                Student targetStudent = Stud.GetValue(inputNIP);
+                                if (targetStudent == null) {
+                                    System.out.println("Student not found!");
+                                    break;
                                 }
-                                System.out.print("Pilih nomor student >> ");
-                                int studentIdx = Sc.nextInt() - 1;
 
-                                if (studentIdx >= 0 && studentIdx < keys.size()) {
-                                    Student selectedStudent = Stud.Get(keys.get(studentIdx));
+                                // Tampilkan list subject
+                                Subject.SubjectName[] subList = Subject.SubjectName.values();
+                                System.out.println("Available Subjects:");
+                                for (int i = 0; i < subList.length; i++) {
+                                    System.out.println((i + 1) + ". " + subList[i]);
+                                }
 
-                                    // Tampilkan daftar subject
-                                    System.out.println("== Select Subject to Enroll ==");
-                                    SubjectSelection[] subList = SubjectSelection.values();
-                                    for (int k = 0; k < subList.length; k++) {
-                                        System.out.println((k + 1) + ". " + subList[k]);
+                                System.out.print("Choose subject (1-" + subList.length + "): ");
+                                int subChoice = Sc.nextInt();
+
+                                if (subChoice < 1 || subChoice > subList.length) {
+                                    System.out.println("Invalid choice!");
+                                    break;
+                                }
+
+                                Subject.SubjectName chosenSubject = subList[subChoice - 1];
+
+                                boolean alreadyEnrolled = false;
+                                for (Subject subject : targetStudent.getSub()) {
+                                    if (subject.getSubName() == chosenSubject) {
+                                        alreadyEnrolled = true;
+                                        break;
                                     }
-                                    System.out.print("Pilih nomor subject >> ");
-                                    int subIdx = Sc.nextInt() - 1;
+                                }
 
-                                    if (subIdx >= 0 && subIdx < subList.length) {
-                                        Subject newSub = new Subject(subList[subIdx].toString());
-                                        selectedStudent.setSub(newSub);
-                                        System.out.println("Subject berhasil ditambahkan ke student.");
-                                    } else {
-                                        System.out.println("Pilihan subject tidak valid.");
-                                    }
+                                if (alreadyEnrolled) {
+                                    System.out.println("Student already enrolled in " + chosenSubject + "!");
                                 } else {
-                                    System.out.println("Pilihan student tidak valid.");
+                                    targetStudent.setSub(new Subject(chosenSubject));
+                                    System.out.println("Subject " + chosenSubject + " successfully enrolled for " + targetStudent.getName() + "!");
                                 }
                                 break;
-                            case 4:
-                                break StudMenu;
                         }
                     }
-                    break;
                 case 3:
                     ProfMenu:
-                    while (true){
+                    while (true) {
                         System.out.print("1. Give assignment" +
                                 "2. Grade" +
                                 "3. Return" +
                                 ">> ");
                         pil = Sc.nextInt();
-                        switch (pil){
+                        switch (pil) {
                             case 1:
-                                /*
-                                System.out.println("Current id: " + id);
-                                if (Stud.GetValue(id) != null){
-                                    System.out.println("What assignment will you give?");
-                                    Enum<assignment> assign = assignmentSelection();
+                    /*
+                    System.out.println("Current id: " + id);
+                    if (Stud.GetValue(id) != null){
+                        System.out.println("What assignment will you give?");
+                        Enum<assignment> assign = assignmentSelection();
 
-                                    biasakan penaroan function jangan di main
-                                    main hanya digunakan untuk yaaa main
-                                    menu begitu fucntion function nanti milik class masing masing
-                                 */
+                        biasakan penaroan function jangan di main
+                        main hanya digunakan untuk yaaa main
+                        menu begitu fucntion function nanti milik class masing masing
+                     */
                                 break;
                             case 2:
                                 break;
@@ -133,53 +142,54 @@ public class Main {
             }
         }
         System.out.println();
-    }
-
-    public static void AddStudent(){
-        System.out.print("Enter Name >> ");
-        String name = Sc.nextLine();
-        System.out.println("Select A Major >> ");
-        Enum<MajorSelection> major = MajorSelect();
-        Stud.Add(String.valueOf(Sistem.Id),new Student(GenerateId(),name,major,NewDate()));
-        Sistem.Id ++;
-    }
-    public static String GenerateId(){
-        return UUID.randomUUID().toString().substring(0,8);
-    }
-
-    public static Date NewDate(){
-        return null;
-    }
-
-
-    public enum Assignment{
-        MIDTERM_EXAM,
-        ENDTERM_EXAM,
-        TEST1,
-        TEST_2,
-        PROJECT
-    }
-
-    public enum MajorSelection{
-        COMMUNICATION,
-        INDUSTRY,
-        BUSINESS,
-        HOTEL
-    }
-
-    public static MajorSelection MajorSelect(){
-        MajorSelection[] mj = MajorSelection.values();
-        int i = 1;
-        for (MajorSelection mjs : MajorSelection.values()){
-            System.out.println(i + ". " + mjs);
-            i++;
-        }
-        System.out.print(">>"); int pil = Sc.nextInt();
-        return mj[pil-1];
-    }
-
-    public Student SelectStudent(){
-        return null;
-    }
-
 }
+
+            public static void AddStudent() {
+                System.out.print("Enter Name >> ");
+                String name = Sc.nextLine();
+                System.out.println("Select A Major >> ");
+                Enum<MajorSelection> major = MajorSelect();
+                Stud.Add(String.valueOf(Sistem.Id), new Student(GenerateId(), name, major, NewDate()));
+                Sistem.Id++;
+            }
+            public static String GenerateId () {
+                return UUID.randomUUID().toString().substring(0, 8);
+            }
+
+            public static Date NewDate () {
+                return new Date(10, 2, 2006);
+            }
+
+
+            public enum Assignment {
+                MIDTERM_EXAM,
+                ENDTERM_EXAM,
+                TEST1,
+                TEST_2,
+                PROJECT
+            }
+
+            public enum MajorSelection {
+                COMMUNICATION,
+                INDUSTRY,
+                BUSINESS,
+                HOTEL
+            }
+
+            public static MajorSelection MajorSelect () {
+                MajorSelection[] mj = MajorSelection.values();
+                int i = 1;
+                for (MajorSelection mjs : MajorSelection.values()) {
+                    System.out.println(i + ". " + mjs);
+                    i++;
+                }
+                System.out.print(">>");
+                int pil = Sc.nextInt();
+                return mj[pil - 1];
+            }
+
+            public Student SelectStudent () {
+                return null;
+            }
+
+        }

@@ -6,7 +6,7 @@ public class Date {
         M = m;
         Y = y;
     }
-//oiiiiiiii
+
     public Integer getD() {
         return D;
     }
@@ -41,7 +41,6 @@ public class Date {
         if (i < 10){
             return "0" + i;
         }
-        return String.valueOf(i);//haloooppppp
-    }//pppp
-    //pp
+        return String.valueOf(i);
+    }
 }

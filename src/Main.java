@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -10,7 +9,7 @@ public class Main {
         SistemMenu:
         while (true){
             String id = GenerateId();
-            Student s = Stud.Get(id);
+            Student s = Stud.GetValue(id);
             System.out.print("1. Add Student" +
                     "2. Student Menu" +
                     "3. Professor Menu" +
@@ -26,13 +25,14 @@ public class Main {
                     while (true){
                         System.out.print("1. View data" +
                                 "2. View Grades" +
-                                "3. Enroll In Subject" +
+                                "3. Enroll In SubjectName" +
                                 "4. Return" +
                                 ">> ");
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
-                                if (Stud.Get(id) != null){
+
+                                if (Stud.GetValue(id) != null){
                                     s.display();
                                 }
                                 else{
@@ -40,8 +40,11 @@ public class Main {
                                 }
                                 break;
                             case 2:
+                                /*
                                 System.out.println("== All Students' Grades ==");
-                                for (Student so : Stud.getAll()) {
+                                //Get all tidak penting, langsung saja Value kan arraylist punya student jadi panggil sj get value,
+                                // tidak perlu buat method baut buat ambil semua student di arraylist
+                                for (Student so : Stud.getValue()) {
                                     System.out.println("Name: " + so.getName());
                                     if (so.getGrades().isEmpty()) {
                                         System.out.println("No grades available.");
@@ -54,6 +57,8 @@ public class Main {
                                     }
                                     System.out.println("-----------------------------");
                                 }
+
+                                 */
                                 break;
 
                             case 3:
@@ -105,12 +110,16 @@ public class Main {
                         pil = Sc.nextInt();
                         switch (pil){
                             case 1:
+                                /*
                                 System.out.println("Current id: " + id);
-                                if (Stud.Get(id) != null){
+                                if (Stud.GetValue(id) != null){
                                     System.out.println("What assignment will you give?");
                                     Enum<assignment> assign = assignmentSelection();
 
-                                }
+                                    biasakan penaroan function jangan di main
+                                    main hanya digunakan untuk yaaa main
+                                    menu begitu fucntion function nanti milik class masing masing
+                                 */
                                 break;
                             case 2:
                                 break;
@@ -131,33 +140,19 @@ public class Main {
         String name = Sc.nextLine();
         System.out.println("Select A Major >> ");
         Enum<MajorSelection> major = MajorSelect();
-        Stud.Add(String.valueOf(Sistem.Id),new Student(GenerateId(),name,major,new Date(1,8,2007)));
+        Stud.Add(String.valueOf(Sistem.Id),new Student(GenerateId(),name,major,NewDate()));
         Sistem.Id ++;
     }
     public static String GenerateId(){
         return UUID.randomUUID().toString().substring(0,8);
     }
 
-    public enum assignment{
-        BIG,
-        BIN,
-        MATH,
-        CIVIC,
-        HISTORY,
+    public static Date NewDate(){
+        return null;
     }
 
-    public static assignment assignmentSelection(){
-        assignment[] as = assignment.values();
-        int i = 1;
-        for (assignment asg : assignment.values()){
-            System.out.println(i + ". " + asg);
-            i++;
-        }
-        System.out.print(">>"); int pil = Sc.nextInt();
-        return as[pil-1];
-    }
 
-    public enum SubjectSelection{
+    public enum Assignment{
         MIDTERM_EXAM,
         ENDTERM_EXAM,
         TEST1,

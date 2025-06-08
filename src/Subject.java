@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
 public class Subject  {
-    private final String SubName;
-    private final Evaluation<String,Integer> eval = new Evaluation<>();
-    private final ArrayList<Assignment> Assignment = new ArrayList<>();
+    private Enum<SubjectName> SubName;
+    private Evaluation<String,Integer> eval = new Evaluation<>();
+    private ArrayList<Assignment> Assignment = new ArrayList<>();
 
-    public Subject(String subName) {
-        SubName = subName;
+    public Subject(Enum<SubjectName> E) {
+        SubName = E;
     }
 
-    public String getSubName() {
+    public Enum<SubjectName> getSubName() {
         return SubName;
     }
 
@@ -19,6 +19,26 @@ public class Subject  {
 
     public ArrayList<Assignment> getAssignment() {
         return Assignment;
+    }
+
+
+    enum SubjectName {
+        BIG,
+        BIN,
+        MATH,
+        CIVIC,
+        HISTORY,
+    }
+
+    public static SubjectName SubjectSelection(){
+        SubjectName[] sub = SubjectName.values();
+        int i = 1;
+        for (SubjectName asg : SubjectName.values()){
+            System.out.println(i + ". " + asg);
+            i++;
+        }
+        System.out.print(">>"); int pil = Main.Sc.nextInt();
+        return sub[pil-1];
     }
 }
 
@@ -38,3 +58,6 @@ class Evaluation<K,V>{
         return Grade;
     }
 }
+
+
+

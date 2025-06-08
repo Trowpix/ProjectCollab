@@ -5,7 +5,12 @@ public class Student {
     private Enum<Main.MajorSelection> Major;
     private Date Age;
     private final ArrayList<Subject> Sub = new ArrayList<>();
-    private ArrayList<Integer> grades = new ArrayList<>();
+    /*
+        private ArrayList<Integer> grades = new ArrayList<>();
+        grades sdh tidak perlu, sudah ada di class subject ---> eval
+        ada type
+     */
+
 
     public Student(String NIP, String name, Enum<Main.MajorSelection> major, Date age) {
         this.NIP = NIP;
@@ -50,15 +55,6 @@ public class Student {
     public ArrayList<Subject> getSub() {
         return Sub;
     }
-
-    public ArrayList<Integer> getGrades() {
-        return grades;
-    }
-
-    public void addGrade(int grade) {
-        grades.add(grade);
-    }
-
 
     public void setSub(Subject sub) {
         Sub.add(sub);

@@ -6,7 +6,7 @@ public class Assignment {
         Title = title;
         DueDate = dueDate;
     }
-//oiiiii
+
     public String getTitle() {
         return Title;
     }
@@ -22,7 +22,5 @@ public class Assignment {
     public void setDueDate(Date dueDate) {
         DueDate = dueDate;
     }
-
-    //dope
 
 }
